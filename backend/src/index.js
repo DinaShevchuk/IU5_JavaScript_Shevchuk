@@ -17,21 +17,28 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    if (req.method === 'OPTIONS') {
-        return res.sendStatus(200);
-    }
-    next();
-});
+const publicPath = path.join(__dirname, '..', 'public');
+app.use(express.static(publicPath));
 
 app.use('/api/products', productsRouter);
 
+app.use((req, res, next) => {
 
-app.use((req, res) => {
-    res.status(404).json({ error: 'Маршрут не найден' });
+    if (req.path.startsWith('/api')) {
+        return next();
+    }
+
+    const indexPath = path.join(publicPath, 'index.html');
+    res.sendFile(indexPath, (err) => {
+        if (err) {
+            console.error('Ошибка отправки index.html:', err);
+            res.status(404).send('File not found');
+        }
+    });
+});
+
+app.use('/api/*', (req, res) => {
+    res.status(404).json({ error: 'API маршрут не найден' });
 });
 
 app.use((err, req, res, next) => {
@@ -39,8 +46,8 @@ app.use((err, req, res, next) => {
     res.status(500).json({ error: 'Внутренняя ошибка сервера' });
 });
 
-
 app.listen(PORT, () => {
     console.log(`✅ Сервер запущен на http://localhost:${PORT}`);
     console.log(`📦 API доступен по адресу: http://localhost:${PORT}/api/products`);
+    console.log(`🌐 Фронтенд доступен по адресу: http://localhost:${PORT}`);
 });
