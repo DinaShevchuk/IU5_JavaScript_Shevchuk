@@ -6,19 +6,49 @@ const init = (filePath) => {
     dataFilePath = filePath;
 };
 
-const findAll = (searchQuery) => {
-    const products = fileService.readData(dataFilePath);
-    if (searchQuery) {
-        return products.filter(product =>
-            product.name.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-    }
-    return products;
+const findAll = () => {
+    return fileService.readData(dataFilePath);
 };
 
 const findOne = (id) => {
     const products = fileService.readData(dataFilePath);
     return products.find(product => product.id === parseInt(id));
+};
+
+const findByName = (name) => {
+    const products = fileService.readData(dataFilePath);
+    const query = name.toString().toLowerCase();
+
+    return products.filter(product => {
+        return product.name && product.name.toLowerCase().includes(query);
+    });
+};
+
+const findByPrice = (price) => {
+    const products = fileService.readData(dataFilePath);
+    const query = price.toString();
+
+    return products.filter(product => {
+        return product.price && product.price.toString() === query;
+    });
+};
+
+const findByForm = (form) => {
+    const products = fileService.readData(dataFilePath);
+    const query = form.toString().toLowerCase();
+
+    return products.filter(product => {
+        return product.form && product.form.toLowerCase().includes(query);
+    });
+};
+
+const findByDescription = (description) => {
+    const products = fileService.readData(dataFilePath);
+    const query = description.toString().toLowerCase();
+
+    return products.filter(product => {
+        return product.description && product.description.toLowerCase().includes(query);
+    });
 };
 
 const create = (productData) => {
@@ -28,7 +58,17 @@ const create = (productData) => {
         ? Math.max(...products.map(p => p.id)) + 1
         : 1;
 
-    const newProduct = { id: newId, ...productData };
+    const newProduct = {
+        id: newId,
+        name: productData.name || 'Без названия',
+        price: productData.price ? productData.price.toString() : '0',
+        image: productData.image || 'https://via.placeholder.com/300x200?text=МедФарм',
+        description: productData.description || '',
+        form: productData.form || '',
+        dosage: productData.dosage || '',
+        contraindications: productData.contraindications || ''
+    };
+
     products.push(newProduct);
     fileService.writeData(dataFilePath, products);
 
@@ -59,4 +99,15 @@ const remove = (id) => {
     return true;
 };
 
-module.exports = { init, findAll, findOne, create, update, remove };
+module.exports = {
+    init,
+    findAll,
+    findOne,
+    findByName,
+    findByPrice,
+    findByForm,
+    findByDescription,
+    create,
+    update,
+    remove
+};

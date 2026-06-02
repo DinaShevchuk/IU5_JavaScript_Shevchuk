@@ -22,23 +22,18 @@ app.use(express.static(publicPath));
 
 app.use('/api/products', productsRouter);
 
-app.use((req, res, next) => {
-
+app.get('*', (req, res) => {
     if (req.path.startsWith('/api')) {
-        return next();
+        return res.status(404).json({ error: 'API маршрут не найден' });
     }
 
     const indexPath = path.join(publicPath, 'index.html');
     res.sendFile(indexPath, (err) => {
         if (err) {
             console.error('Ошибка отправки index.html:', err);
-            res.status(404).send('File not found');
+            res.status(404).send('Файл не найден. Сначала соберите фронтенд командой npm run build');
         }
     });
-});
-
-app.use('/api/*', (req, res) => {
-    res.status(404).json({ error: 'API маршрут не найден' });
 });
 
 app.use((err, req, res, next) => {
@@ -48,6 +43,6 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => {
     console.log(`✅ Сервер запущен на http://localhost:${PORT}`);
-    console.log(`📦 API доступен по адресу: http://localhost:${PORT}/api/products`);
-    console.log(`🌐 Фронтенд доступен по адресу: http://localhost:${PORT}`);
+    console.log(`📦 API: http://localhost:${PORT}/api/products`);
+    console.log(`🌐 Фронтенд: http://localhost:${PORT}`);
 });

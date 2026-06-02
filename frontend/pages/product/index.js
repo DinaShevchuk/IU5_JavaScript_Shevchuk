@@ -52,10 +52,14 @@ export class ProductPage {
 
         if (!detailDiv) return;
 
+        const imageUrl = product.image && product.image.trim() !== ''
+            ? product.image
+            : 'https://via.placeholder.com/500x400?text=МедФарм';
+
         detailDiv.innerHTML = `
             <div class="row g-0">
                 <div class="col-md-6">
-                    <img src="${product.image || 'https://via.placeholder.com/500'}"
+                    <img src="${imageUrl}"
                          class="detail-image img-fluid rounded"
                          alt="${product.name}"
                          style="width: 100%; object-fit: cover;">

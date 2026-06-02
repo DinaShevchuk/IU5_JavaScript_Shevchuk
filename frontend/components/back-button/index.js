@@ -5,7 +5,7 @@ export class BackButtonComponent {
 
     getHTML() {
         return `
-            <button id="back-button" class="btn-back">
+            <button id="back-button" class="btn btn-outline-primary mb-4">
                 <i class="fas fa-arrow-left me-2"></i>Вернуться к каталогу
             </button>
         `;

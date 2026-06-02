@@ -3,12 +3,8 @@ class FetchApi {
         try {
             const response = await fetch(url, options);
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
             if (response.status === 204) {
-                return null;
+                return { data: null, status: response.status };
             }
 
             const data = await response.json();
@@ -22,18 +18,14 @@ class FetchApi {
     async get(url) {
         return this._request(url, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: { 'Content-Type': 'application/json' }
         });
     }
 
     async post(url, data) {
         return this._request(url, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         });
     }
@@ -41,9 +33,7 @@ class FetchApi {
     async patch(url, data) {
         return this._request(url, {
             method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         });
     }
@@ -51,9 +41,7 @@ class FetchApi {
     async delete(url) {
         return this._request(url, {
             method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            headers: { 'Content-Type': 'application/json' }
         });
     }
 }
