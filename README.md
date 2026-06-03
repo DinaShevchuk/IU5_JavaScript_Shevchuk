@@ -1,4 +1,4 @@
-# ЛР 1. Calculator. HTML/CSS
+# ЛР2. Calculator. JavaScript
 
 Шевчук Диана ИУ5-44Б
 
@@ -7,58 +7,75 @@
 - [Цель работы](#Цель)
 - [Тема](Тема)
 - [Сайт для вдохновения](#Сайт)
+- [Основные принцыпы работы](#Основные принцыпы работы)
 - [Дополнительные задания](#Дополнительные-задания)
 - [План](#План-выполнения-работы)
 
-## **Цель** данной лабораторной работы — знакомство с инструментами построения пользовательских интерфейсов web-сайтов: HTML и CSS.
+## **Цель** данной лабораторной работы — знакомство с инструментами построения пользовательских интерфейсов web-сайтов: HTML, CSS, JavaScript.
 
-В ходе выполнения работы необходимо ознакомиться с реализацией простого калькулятора и выполнить задания по варианту.
+В ходе выполнения работы, вам предстоит продолжить реализовывать простой калькулятор, и затем выполнить задания по варианту.
 
 ## **Тема:** Производство лекарств из готовых веществ.
 
 ## **Сайт** для вдохновения: https://endopharm.ru/
 
+## **Основные принцыпы работы** 
+
+При нажатии на цифру → добавляем её к a или b в зависимости от того, выбрана ли операция.
+При нажатии на операцию → запоминаем selectedOperation.
+При нажатии = → выполняем операцию над числами (преобразуем в Number), результат кладём в a, обнуляем b.
+При нажатии C → сбрасываем все переменные, выводим 0.
+
 ## **Дополнительные задания**
 
-1. добавление лого и изменение шрифта в названии
+1. исправление ошибки с нажатием на '.' (при нажатии точки без числа, на эккране калькулятора отображалось("." а не "0.")
 
-```css
-document.addEventListener('keydown', function(event) {
-.logo {
-  display: flex;
-  align-items: center;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
+```script.js
+const digitButtons = document.querySelectorAll('[id ^= "btn_digit_"]')
+    function onDigitButtonClicked(digit) {
+    if (!selectedOperation) {
+        if ((digit != '.') || (digit == '.' && !first.includes(digit))) {
+            if (first.length < 15) {
+                first += digit;
+            }
+        }
+        if (first == '.'){
+            first = '0.'
+        }
+        outputElement.innerHTML = first;
+    }
+    else {
+        if ((digit != '.') || (digit == '.' && !second.includes(digit))) {
+            if (second.length < 15) {
+                second += digit;
+            }
+        } 
+        if (second == '.'){
+            second = '0.'
+        }
+        outputElement.innerHTML = second;
+    }
 }
-
-.logo img {
-  margin-right: 5px;
-  margin-top: 5px;
-  width: 50px;
-}
- и
-<div class="logo">
-  <img src="logo.jpg" alt="ЛОГО">
-  <a> Фарматек </a>
-</div>
 ```
 
-2. изменение поведения при нажатии на кнопку
+2. исправление деления на 0
 
-```css
-.my-btn:active {
-  box-shadow: inset 8px 5px 8px rgba(0,0,0,0.3);
-  filter:brightness(50%)
+```script.js
+case '/':
+expressionResult = (+first) / (+second)
+if (second == 0) {
+    outputElement.innerHTML = expressionResult.toString()
+    first = ''
+    second = ''
+    selectedOperation = null
 }
+break;
 ```
 
 
 ## План выполнения работы
-1. HTML-разметка
-2. Базовая структура HTML-документа
-3. Создание проекта
-4. Верстка калькулятора
-5. CSS
-6. Применение CSS к HTML-документу
-7. Стилизация интерфейса калькулятора
-8. Выполнение задания
+1. Программирование логики с помощью JavaScript
+2. Доступ к HTML-элементам из JavaScript
+3. Программирование кнопок калькулятора
+4. Запуск калькулятора с помощью LiveServer
+5. Задание
