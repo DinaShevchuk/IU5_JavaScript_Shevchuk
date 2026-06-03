@@ -58,56 +58,11 @@ components/             # компоненты
 1. Переделаны запросы через async, await, fetch.
 
 ```
-class Ajax {
-    async get(url) {
-        try {
-            const response = await fetch(url);
-            return await this._handleResponse(response);
-        } catch (error) {
-            console.error('Fetch error (GET):', error);
-            throw error;
-        }
-    }
-    async post(url, data) {
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-            return await this._handleResponse(response);
-        } catch (error) {
-            console.error('Fetch error (POST):', error);
-            throw error;
-        }
-    }
-    async delete(url) {
-        try {
-            const response = await fetch(url, { method: 'DELETE' });
-            return await this._handleResponse(response);
-        } catch (error) {
-            console.error('Fetch error (DELETE):', error);
-            throw error;
-        }
-    }
-    async _handleResponse(response) {
-        const data = await response.json().catch(() => null);
-        return { data, status: response.status };
-    }
-}
 
 export const ajax = new Ajax();
 ```
 ```
-async getData() {
-    try {
-        const { data } = await ajax.get(stockUrls.getStocks());
-        this.cardsData2 = data;
-        this.renderData();
-    } catch (e) {
-        console.error("Ошибка при получении данных:", e);
-    }
-}
+
 ```
 
 ## План выполнения работы
