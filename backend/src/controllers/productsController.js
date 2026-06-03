@@ -1,7 +1,7 @@
 const productsService = require('../services/productsService');
 
 const getAllProducts = (req, res) => {
-    const { name, price} = req.query;
+    const { name, price, form, description } = req.query;
 
     console.log('=== ПОЛУЧЕН ЗАПРОС ===');
     console.log('name:', name);
@@ -16,6 +16,10 @@ const getAllProducts = (req, res) => {
         products = productsService.findByName(name);
     } else if (price) {
         products = productsService.findByPrice(price);
+    } else if (form) {
+        products = productsService.findByForm(form);
+    } else if (description) {
+        products = productsService.findByDescription(description);
     } else {
         products = productsService.findAll();
     }

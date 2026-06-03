@@ -16,46 +16,16 @@ export class MainPage {
     getHTML() {
         return `
             <div class="container">
-                <div class="section-title fade-in">
-                    <div class="d-flex justify-content-between align-items-center flex-wrap">
-                        <div>
-                            <h2><i class="fas fa-star-of-life me-2"></i>Наши препараты</h2>
-                            <p>Только сертифицированные лекарственные средства высшего качества</p>
-                        </div>
-                        <button id="add-product-btn" class="btn btn-success btn-lg">
-                            <i class="fas fa-plus me-2"></i>Добавить препарат
-                        </button>
+                <div class="section-title fade-in d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2><i class="fas fa-star-of-life me-2"></i>Наши препараты</h2>
+                        <p>Только сертифицированные лекарственные средства высшего качества</p>
                     </div>
-
-                    <div class="search-bar mt-4 mb-4">
-                        <div class="row g-2">
-                            <div class="col-md-5">
-                                <input type="text" id="search-input" class="form-control form-control-lg"
-                                       placeholder="🔍 Поиск...">
-                            </div>
-                            <div class="col-md-4">
-                                <select id="search-field" class="form-select form-select-lg">
-                                    <option value="name">По названию</option>
-                                    <option value="description">По описанию</option>
-                                    <option value="form">По форме выпуска</option>
-                                    <option value="price">По цене</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <button id="search-btn" class="btn btn-primary btn-lg w-100">
-                                    <i class="fas fa-search me-2"></i>Найти
-                                </button>
-                            </div>
-                            <div class="col-md-1">
-                                <button id="clear-search-btn" class="btn btn-outline-secondary btn-lg w-100">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="products-grid" class="row g-4"></div>
+                    <button id="add-product-btn" class="btn btn-success btn-lg">
+                        <i class="fas fa-plus me-2"></i>Добавить препарат
+                    </button>
                 </div>
+                <div id="products-grid" class="row g-4"></div>
             </div>
 
             <div class="modal fade" id="addProductModal" tabindex="-1">
@@ -273,102 +243,6 @@ export class MainPage {
         }
     }
 
-    setupSearch() {
-        const searchBtn = document.getElementById('search-btn');
-        if (searchBtn) {
-            searchBtn.addEventListener('click', () => this.searchProducts());
-        }
-
-        const clearBtn = document.getElementById('clear-search-btn');
-        if (clearBtn) {
-            clearBtn.addEventListener('click', () => this.clearSearch());
-        }
-
-        const searchInput = document.getElementById('search-input');
-        if (searchInput) {
-            searchInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    this.searchProducts();
-                }
-            });
-        }
-    }
-
-    clearSearch() {
-        document.getElementById('search-input').value = '';
-        document.getElementById('search-field').value = 'name';
-        this.loadProducts();
-    }
-
-    async searchProducts() {
-        const searchInput = document.getElementById('search-input').value;
-        const searchField = document.getElementById('search-field').value;
-
-        console.log('Поиск:', searchInput, 'Поле:', searchField);
-
-        if (!searchInput.trim()) {
-            this.loadProducts();
-            return;
-        }
-
-        this.pageRoot.innerHTML = `
-            <div class="text-center py-5">
-                <div class="spinner-border text-primary" role="status"></div>
-                <p class="mt-3">Поиск...</p>
-            </div>
-        `;
-
-        try {
-            let url;
-
-            // В зависимости от выбранного поля, используем разные URL
-            switch (searchField) {
-                case 'name':
-                    url = apiUrls.getProductsByName(searchInput);
-                    break;
-                case 'price':
-                    url = apiUrls.getProductsByPrice(searchInput);
-                    break;
-                case 'form':
-                    url = apiUrls.getProductsByForm(searchInput);
-                    break;
-                case 'description':
-                    url = apiUrls.getProductsByDescription(searchInput);
-                    break;
-                default:
-                    url = apiUrls.getProductsByName(searchInput);
-            }
-
-            console.log('URL запроса:', url);
-
-            const response = await fetch(url);
-            const products = await response.json();
-
-            this.renderProducts(products);
-
-            if (products.length === 0) {
-                this.pageRoot.innerHTML = `
-                    <div class="alert alert-info text-center py-5">
-                        <i class="fas fa-search fa-3x mb-3"></i>
-                        <h5>Ничего не найдено</h5>
-                        <p>По запросу "${searchInput}" в поле "${searchField}" ничего не найдено</p>
-                        <button class="btn btn-primary mt-2" id="clear-search-btn">
-                            <i class="fas fa-times me-2"></i>Сбросить поиск
-                        </button>
-                    </div>
-                `;
-
-                const clearBtn = document.getElementById('clear-search-btn');
-                if (clearBtn) {
-                    clearBtn.addEventListener('click', () => this.clearSearch());
-                }
-            }
-        } catch (error) {
-            console.error('Ошибка поиска:', error);
-            this.showError('Ошибка при поиске');
-        }
-    }
-
     showNotification(message, type = 'info') {
         const alertDiv = document.createElement('div');
         alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed top-0 end-0 m-3`;
@@ -417,9 +291,6 @@ export class MainPage {
         this.parent.innerHTML = '';
         this.parent.insertAdjacentHTML('beforeend', this.getHTML());
         this.setupAddButton();
-        this.setupSearch();
         this.loadProducts();
     }
-
-
 }

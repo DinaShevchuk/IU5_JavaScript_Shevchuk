@@ -4,9 +4,9 @@ export class ProductCardComponent {
     }
 
     getHTML(data) {
-        const imageUrl = data.image && data.image.trim() !== ''
-            ? data.image
-            : 'https://via.placeholder.com/300x200?text=МедФарм';
+
+        const defaultImage = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\' viewBox=\'0 0 300 200\'%3E%3Crect width=\'300\' height=\'200\' fill=\'%232a5298\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' fill=\'white\' font-size=\'16\'%3E%D0%9C%D0%B5%D0%B4%D0%A4%D0%B0%D1%80%D0%BC%3C/text%3E%3C/svg%3E';
+        const imageUrl = (data.image && data.image.trim() !== '') ? data.image : defaultImage;
 
         return `
             <div class="col-lg-4 col-md-6 mb-4 fade-in">

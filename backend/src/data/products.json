@@ -38,5 +38,15 @@
     "form": "Капсулы 400 мг",
     "dosage": "По 1 капсуле 2 раза в день",
     "contraindications": "Индивидуальная непереносимость"
+  },
+  {
+    "id": 5,
+    "name": "дщд",
+    "price": "345",
+    "image": "https://via.placeholder.com/300x200?text=МедФарм",
+    "description": "",
+    "form": "",
+    "dosage": "",
+    "contraindications": ""
   }
 ]
