@@ -1,0 +1,318 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+    background: linear-gradient(135deg, #e8f4f8 0%, #f0e6f5 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#root {
+    flex: 1;
+}
+
+.pharma-header {
+    background: linear-gradient(135deg, #2c5f8a 0%, #4a90b8 50%, #6bb5d9 100%);
+    color: white;
+    padding: 20px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.logo-icon {
+    font-size: 2.2rem;
+    margin-right: 15px;
+}
+
+.pharma-header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.pharma-header p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 0.85rem;
+}
+
+.phone-number {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.phone-number:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.02);
+}
+
+.section-title {
+    text-align: center;
+    margin: 30px 0 40px;
+}
+
+.section-title h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #2c5f8a, #6bb5d9);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 10px;
+}
+
+.section-title p {
+    color: #666;
+    font-size: 1rem;
+}
+
+
+.product-card {
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.product-card {
+    background: linear-gradient(135deg, #9fb7f7 0%, #fde3f3 100%);
+}
+
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.product-image-wrapper {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+    background: #f5f5f5;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    padding: 10px;
+    transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.05);
+}
+
+.product-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: linear-gradient(135deg, #4caf50, #2e7d32);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.product-body {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.product-description {
+    color: #2c5f8a;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    flex: 1;
+}
+
+.product-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.product-price {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.product-price small {
+    font-size: 0.7rem;
+    font-weight: normal;
+    color: #2c5f8a;
+}
+
+.btn-detail {
+    background: linear-gradient(135deg, #2c5f8a, #4a90b8);
+    border: none;
+    padding: 8px 18px;
+    border-radius: 25px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-detail:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 12px rgba(44, 95, 138, 0.3);
+}
+
+.detail-card {
+    background: linear-gradient(135deg, #9fb7f7 0%, #fde3f3 100%);
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+
+.detail-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 350px;
+}
+
+.detail-body {
+    padding: 30px;
+}
+
+.detail-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.detail-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #4a90b8;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0;
+    margin-bottom: 20px;
+}
+
+.detail-description {
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.info-section {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 18px;
+    margin-bottom: 18px;
+}
+
+.info-section h6 {
+    color: #2c5f8a;
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.info-section p {
+    color: #4a90b8;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.pharma-footer {
+    background: linear-gradient(135deg, #2c5f8a 0%, #1a3a4f 100%);
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: auto;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+@media (max-width: 768px) {
+    .pharma-header h1 {
+        font-size: 1.2rem;
+    }
+
+    .logo-icon {
+        font-size: 1.5rem;
+    }
+
+    .section-title h2 {
+        font-size: 1.5rem;
+    }
+
+    .detail-title {
+        font-size: 1.3rem;
+    }
+
+    .detail-body {
+        padding: 20px;
+    }
+
+    .product-image-wrapper {
+        height: 160px;
+    }
+}
+
+@media (max-width: 576px) {
+    .product-title {
+        font-size: 1rem;
+    }
+
+    .product-price {
+        font-size: 1.1rem;
+    }
+
+    .btn-detail {
+        padding: 6px 14px;
+        font-size: 0.75rem;
+    }
+}
